@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import 'antd/dist/antd.css'
+import {connect} from 'react-redux'  //引入连接器
 import {
     Form,
     Input,
@@ -9,18 +10,7 @@ import { FormComponentProps } from 'antd/lib/form';
 //import { object, any } from 'prop-types';
 
 
-interface FormProps extends FormComponentProps {
-    submitting: boolean;
-  }
-  
-
-class Require extends Component<FormProps> {
-    state = {
-        autoCompleteResult: [],
-
-    };
-
-  
+class Require extends Component<FormComponentProps> {
       handleSubmit = (e: React.FormEvent) => {
         const { form } = this.props;
         e.preventDefault();
@@ -57,6 +47,7 @@ class Require extends Component<FormProps> {
                                 message: 'Please input your E-mail!',
                             },
                         ],
+                    //    initialValue:this.props.inputValue
                     })(<Input />)}
                 </Form.Item>
                 
@@ -65,6 +56,7 @@ class Require extends Component<FormProps> {
         );
     }
 }
-export default Form.create<FormProps>()(
-    (Require),
-  );
+
+export default Form.create<FormComponentProps>()(
+    connect(null,null)(Require),
+)

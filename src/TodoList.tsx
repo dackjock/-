@@ -11,7 +11,7 @@ interface Person {
 }
 
 const contentListNoTitle: Person = {
-    article: <Require   submitting={false}/>,
+    article: <Require  />,
     app: <p>app content</p>,
     project: <p>project content</p>,
 };
