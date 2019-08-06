@@ -9,8 +9,10 @@ import {
 import { FormComponentProps } from 'antd/lib/form';
 //import { object, any } from 'prop-types';
 
-
-class Require extends Component<FormComponentProps> {
+interface YProps extends FormComponentProps {
+    inputValue: {a:any};
+  }
+class Require extends Component<YProps> {
       handleSubmit = (e: React.FormEvent) => {
         const { form } = this.props;
         e.preventDefault();
@@ -47,7 +49,7 @@ class Require extends Component<FormComponentProps> {
                                 message: 'Please input your E-mail!',
                             },
                         ],
-                    //    initialValue:this.props.inputValue
+                    initialValue:this.props.inputValue.a
                     })(<Input />)}
                 </Form.Item>
                 
@@ -56,7 +58,11 @@ class Require extends Component<FormComponentProps> {
         );
     }
 }
-
-export default Form.create<FormComponentProps>()(
-    connect(null,null)(Require),
+const stateToProps = (state:any)=>{
+    return {
+        inputValue : state.inputValue
+    }
+}
+export default Form.create<YProps>()(
+    connect(stateToProps,null)(Require),
 )
