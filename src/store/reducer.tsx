@@ -3,6 +3,6 @@ export default (state = defaultState,action:{type:undefined,value:undefined})=>{
     if(action.type === undefined){
         return
     }
-    let newState = JSON.parse(JSON.stringify(state)) //深度拷贝state;
+    //let newState = JSON.parse(JSON.stringify(state)) //深度拷贝state;
     return state
 }

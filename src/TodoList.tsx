@@ -9,8 +9,9 @@ interface Person {
     app: any,
     project: any,
 }
+
 const contentListNoTitle: Person = {
-    article: <Require/>,
+    article: <Require   submitting={false}/>,
     app: <p>app content</p>,
     project: <p>project content</p>,
 };
@@ -30,7 +31,7 @@ const tabListNoTitle= [
 ];
 
 
-class TodoList extends Component {
+class TodoList extends Component<any> {
     state = {
         key: 'tab1',
         noTitleKey: 'app',
@@ -40,10 +41,7 @@ class TodoList extends Component {
         console.log(key, type);
         this.setState({ [type]: key });
     };
-    constructor(props: object) {
-        super(props);
-
-    }
+  
     componentDidMount() {
     
     }
