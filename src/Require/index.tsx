@@ -8,11 +8,10 @@ import {
 } from 'antd'
 import { FormComponentProps } from 'antd/lib/form';
 //import PropTypes from 'prop-types'
-//import { Dispatch } from 'redux';
+import { Dispatch } from 'redux';
 interface YProps extends FormComponentProps {
     inputValue: { a: string };
-    inputChange: any,
-   // dispatch:Dispatch<any>
+    dispatch:Dispatch<any>
 }
 
 
@@ -54,7 +53,7 @@ class Require extends Component<YProps> {
                             },
                         ],
                         initialValue: this.props.inputValue.a
-                    })(<Input onChange={this.props.inputChange} />)}
+                    })(<Input />)}
                 </Form.Item>
 
 
@@ -92,18 +91,18 @@ const stateToProps = (state: any) => {
 //     connect(stateToProps, dispatchToProps)(Require),
 // )
 
-export default connect( stateToProps)(Form.create(
+export default connect( stateToProps)(Form.create<YProps>(
     {
                 name: 'global_state',
                 onFieldsChange(props, changedFields) {
-                  
-                  console.log(props, changedFields);
-                 // props.dispatch//用不了！！！！！？？？？？ 有这个属性但是用不了
-                  
+                 // console.log(props, changedFields);
+                  props.dispatch({
+                    type: 'change_input',
+                    value: changedFields.email.value
+                  })//用不了！！！！！？？？？？ 有这个属性但是用不了
                 },
                 onValuesChange(_, values) {
                     //console.log(values);
                 },
             }
 )(Require))
- 
