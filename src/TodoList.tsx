@@ -11,7 +11,7 @@ interface Person {
 }
 
 const contentListNoTitle: Person = {
-    article: <Require  inputValue={{a:'2'}} inputChange/>,
+    article: <Require />,
     app: <p>app content</p>,
     project: <p>project content</p>,
 };

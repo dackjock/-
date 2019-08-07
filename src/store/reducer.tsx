@@ -5,6 +5,10 @@ export default (state = defaultState,action:{type:undefined,value:undefined})=>{
     if(action.type === undefined){
         return
     }
+    if(action.type === "change_input"){
+        console.log(action.value)
+        return
+    }
     //let newState = JSON.parse(JSON.stringify(state)) //深度拷贝state;
     return state
 }
