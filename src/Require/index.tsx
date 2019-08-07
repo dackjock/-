@@ -10,8 +10,11 @@ import { FormComponentProps } from 'antd/lib/form';
 //import { object, any } from 'prop-types';
 
 interface YProps extends FormComponentProps {
-    inputValue: {a:any};
+    inputValue: {a:string};
+
   }
+
+
 class Require extends Component<YProps> {
       handleSubmit = (e: React.FormEvent) => {
         const { form } = this.props;
@@ -23,7 +26,7 @@ class Require extends Component<YProps> {
           });
       };
     render() {
-        const {form: { getFieldDecorator }} = this.props;
+        const {form: { getFieldDecorator } } = this.props;
         const formItemLayout = {
             labelCol: {
                 xs: { span: 24 },
@@ -63,6 +66,28 @@ const stateToProps = (state:any)=>{
         inputValue : state.inputValue
     }
 }
-export default Form.create<YProps>()(
-    connect(stateToProps,null)(Require),
+const dispatchToProps = (dispatch:any) =>{
+    return {
+        inputChange(e:any){
+            console.log(e.target.value);
+            dispatch( {
+                type:'change_input',
+                value:e.target.value
+            })
+        }
+    }
+}
+export default Form.create<YProps>(
+    {
+        name: 'global_state',
+        onFieldsChange(props, changedFields) {
+        //   props.onChange(changedFields);
+            console.log(props,changedFields);
+        },
+        onValuesChange(_, values) {
+          //console.log(values);
+        },
+      }
+)(
+    connect(stateToProps,dispatchToProps)(Require),
 )
