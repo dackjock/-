@@ -3,17 +3,23 @@ import 'antd/dist/antd.css'
 import { connect } from 'react-redux'  //引入连接器
 import {
     Form,
-    Input,
+    // Input,
+    Row,
+    Col,
+    Select,
+    Button,
+    Radio,
+} from 'antd';
 
-} from 'antd'
 import { FormComponentProps } from 'antd/lib/form';
 //import PropTypes from 'prop-types'
 import { Dispatch } from 'redux';
 interface YProps extends FormComponentProps {
-    inputValue: { a: string };
-    dispatch:Dispatch<any>
+    inputValue: { a: string, CName: string };
+    dispatch: Dispatch<any>
 }
-
+const { Option } = Select;
+const { createFormField } = Form;
 
 class Require extends Component<YProps> {
     handleSubmit = (e: React.FormEvent) => {
@@ -30,31 +36,89 @@ class Require extends Component<YProps> {
         const formItemLayout = {
             labelCol: {
                 xs: { span: 24 },
-                sm: { span: 8 },
+                sm: { span: 6 },
             },
             wrapperCol: {
                 xs: { span: 24 },
                 sm: { span: 16 },
             },
         };
-
+        const itemLayout = {
+            labelCol: {
+                xs: { span: 24 },
+                sm: { span: 10 },
+            },
+            wrapperCol: {
+                xs: { span: 24 },
+                sm: { span: 14 },
+            },
+        }
         return (
             <Form {...formItemLayout} onSubmit={this.handleSubmit}>
-                <Form.Item label="E-mail">
-                    {getFieldDecorator('email', {
-                        rules: [
-                            {
-                                type: 'email',
-                                message: 'The input is not valid E-mail!',
-                            },
-                            {
-                                required: true,
-                                message: 'Please input your E-mail!',
-                            },
-                        ],
-                        initialValue: this.props.inputValue.a
-                    })(<Input />)}
-                </Form.Item>
+                <Row>
+                    {/* <Col span={8}>
+                        <Form.Item label="E-mail">
+                            {getFieldDecorator('email', {
+                                rules: [
+                                    {
+                                        type: 'email',
+                                        message: 'The input is not valid E-mail!',
+                                    },
+                                    {
+                                        required: true,
+                                        message: 'Please input your E-mail!',
+                                    },
+                                ],
+                            })(<Input />)}
+                        </Form.Item>
+                    </Col> */}
+                    <Col span={8}>
+                        <Row type={'flex'} >
+                            <Col span={20}>
+                                <Form.Item {...itemLayout} label="客户代码">
+                                    {getFieldDecorator('code', {
+                                        rules: [
+                                            {
+                                                required: true,
+                                                message: '请选择客户代码',
+                                            },
+                                        ],
+
+                                    })(
+                                        <Select
+                                            showSearch
+                                            filterOption={(input, option: any) =>
+                                                option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                                            }
+                                        >
+                                            <Option value="86">+86</Option>
+                                            <Option value="87">+87</Option>
+                                        </Select>
+                                    )}
+                                </Form.Item>
+                            </Col>
+                            <Col span={4} style={{ lineHeight: '40px', paddingLeft: "10px" }} >
+                                <Button type="default" shape="circle" icon="dash" size={'small'} />
+                            </Col>
+                        </Row>
+                    </Col>
+                    <Col span={8}>
+                        <div style={{ lineHeight: '40px' }}>
+                            客户名称 :{this.props.inputValue.CName}
+                        </div>
+                    </Col>
+                    <Col span={8}>
+                        <Form.Item label="报价方法">
+                            {getFieldDecorator('radio-group',{ initialValue :"1"})(
+                                <Radio.Group>
+                                    <Radio value="1">单个型号</Radio>
+                                    <Radio value="2">多个型号</Radio>
+                                </Radio.Group>,
+                            )}
+                        </Form.Item>
+                    </Col>
+                </Row>
+
 
 
             </Form>
@@ -91,18 +155,25 @@ const stateToProps = (state: any) => {
 //     connect(stateToProps, dispatchToProps)(Require),
 // )
 
-export default connect( stateToProps)(Form.create<YProps>(
+export default connect(stateToProps)(Form.create<YProps>(
     {
-                name: 'global_state',
-                onFieldsChange(props, changedFields) {
-                 // console.log(props, changedFields);
-                  props.dispatch({
-                    type: 'change_input',
-                    value: changedFields.email.value
-                  })//用不了！！！！！？？？？？ 有这个属性但是用不了
-                },
-                onValuesChange(_, values) {
-                    //console.log(values);
-                },
-            }
+        name: 'global_state',
+        onFieldsChange(props, changedFields) {
+            // console.log(props, changedFields);
+            //  console.log(changedFields);
+            // props.dispatch({
+            //     type: 'change_input',
+            //     value: changedFields.email.value
+            // })
+        },
+        onValuesChange(_, values) {
+            //console.log(values);
+        },
+        mapPropsToFields(props) {
+            // console.log('mapPropsToFields', props);
+            return {
+                code: createFormField({ value: props.inputValue.a }),
+            };
+        },
+    }
 )(Require))
