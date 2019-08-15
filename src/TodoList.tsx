@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import 'antd/dist/antd.css'
 import { Card } from 'antd'
 import Require from './Require'
+import store from './store'
+import { getTodoList } from "./store/actionCreators"
 // import axios from 'axios'
 
 interface Person {
@@ -43,7 +45,8 @@ class TodoList extends Component<any> {
     };
   
     componentDidMount() {
-    
+        const action = getTodoList();
+        store.dispatch(action);
     }
     render() {
 

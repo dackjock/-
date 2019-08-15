@@ -2,6 +2,7 @@
   "name": "antd-demo-ts",
   "version": "0.1.0",
   "private": true,
+  "proxy":"http://192.168.0.104:8008/web/",
   "dependencies": {
     "@types/jest": "24.0.16",
     "@types/node": "12.6.8",

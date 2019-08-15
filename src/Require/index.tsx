@@ -14,8 +14,15 @@ import {
 import { FormComponentProps } from 'antd/lib/form';
 //import PropTypes from 'prop-types'
 import { Dispatch } from 'redux';
+
 interface YProps extends FormComponentProps {
-    inputValue: { a: string, CName: string };
+    inputValue: {
+        a: string,
+        customer: string,
+        CType: string,
+        country: string,
+
+    };
     dispatch: Dispatch<any>
 }
 const { Option } = Select;
@@ -40,21 +47,21 @@ class Require extends Component<YProps> {
             },
             wrapperCol: {
                 xs: { span: 24 },
-                sm: { span: 16 },
+                sm: { span: 14 },
             },
         };
         const itemLayout = {
             labelCol: {
                 xs: { span: 24 },
-                sm: { span: 10 },
+                sm: { span: 8 },
             },
             wrapperCol: {
                 xs: { span: 24 },
-                sm: { span: 14 },
+                sm: { span: 16 },
             },
         }
         return (
-            <Form {...formItemLayout} onSubmit={this.handleSubmit}>
+            <Form {...formItemLayout} labelAlign='left' onSubmit={this.handleSubmit} className={'Require_From'}>
                 <Row>
                     {/* <Col span={8}>
                         <Form.Item label="E-mail">
@@ -74,7 +81,7 @@ class Require extends Component<YProps> {
                     </Col> */}
                     <Col span={8}>
                         <Row type={'flex'} >
-                            <Col span={20}>
+                            <Col span={16}>
                                 <Form.Item {...itemLayout} label="客户代码">
                                     {getFieldDecorator('code', {
                                         rules: [
@@ -97,19 +104,19 @@ class Require extends Component<YProps> {
                                     )}
                                 </Form.Item>
                             </Col>
-                            <Col span={4} style={{ lineHeight: '40px', paddingLeft: "10px" }} >
+                            <Col span={6} style={{ lineHeight: '40px', paddingLeft: "10px" }} >
                                 <Button type="default" shape="circle" icon="dash" size={'small'} />
                             </Col>
                         </Row>
                     </Col>
                     <Col span={8}>
                         <div style={{ lineHeight: '40px' }}>
-                            客户名称 :{this.props.inputValue.CName}
+                            客户名称 :{this.props.inputValue.customer}
                         </div>
                     </Col>
                     <Col span={8}>
                         <Form.Item label="报价方法">
-                            {getFieldDecorator('radio-group',{ initialValue :"1"})(
+                            {getFieldDecorator('radio-group', { initialValue: "1" })(
                                 <Radio.Group>
                                     <Radio value="1">单个型号</Radio>
                                     <Radio value="2">多个型号</Radio>
@@ -118,10 +125,125 @@ class Require extends Component<YProps> {
                         </Form.Item>
                     </Col>
                 </Row>
-
-
-
-            </Form>
+                <Row>
+                    <Col span={8}>
+                        <div style={{ lineHeight: '40px' }}>
+                            客户类型 :{this.props.inputValue.CType}
+                        </div>
+                    </Col>
+                    <Col span={8}>
+                        <div style={{ lineHeight: '40px' }}>
+                            所属国家 :{this.props.inputValue.CType}
+                        </div>
+                    </Col>
+                    <Col span={8}>
+                        <div style={{ lineHeight: '40px' }}>
+                            客户代理 :
+                        </div>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col span={8} offset={8}>
+                        <div style={{ lineHeight: '40px' }}>
+                            币种 :
+                        </div>
+                    </Col>
+                    <Col span={8} >
+                        <div style={{ lineHeight: '40px' }}>
+                            汇率 :
+                        </div>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col span={8}>
+                        <div style={{ lineHeight: '40px' }}>
+                            付款条件 :
+                        </div>
+                    </Col>
+                    <Col span={8}>
+                        <div style={{ lineHeight: '40px' }}>
+                            税种 :
+                        </div>
+                    </Col>
+                    <Col span={8}>
+                        <div style={{ lineHeight: '40px' }}>
+                            税率 :
+                        </div>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col span={8} >
+                        <div style={{ lineHeight: '40px' }}>
+                            业务员 :
+                        </div>
+                    </Col>
+                    <Col span={8}>
+                        <Form.Item label="交货方式">
+                            {getFieldDecorator('code', {
+                            })(
+                                <Select>
+                                    <Option value="DDP">DDP</Option>
+                                    <Option value="FCB">FCB</Option>
+                                </Select>
+                            )}
+                        </Form.Item>
+                    </Col>
+                    <Col span={8} >
+                        <div style={{ lineHeight: '40px' }}>
+                            目的地 :
+                        </div>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col span={8}>
+                        <Form.Item label="采购联系人">
+                            {getFieldDecorator('conectMan', {
+                            })(
+                                <Select>
+                                    <Option value="DDP">DDP</Option>
+                                    <Option value="FCB">FCB</Option>
+                                </Select>
+                            )}
+                        </Form.Item>
+                    </Col>
+                    <Col span={8} >
+                        <div style={{ lineHeight: '40px' }}>
+                            联系号码 :
+                        </div>
+                    </Col>
+                    <Col span={8} >
+                        <div style={{ lineHeight: '40px' }}>
+                            邮件 :
+                        </div>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col>
+                        <Form.Item labelCol={{span:2}} label="收货地址">
+                            {getFieldDecorator('address', {
+                        })(
+                            <Select>
+                                <Option value="DDP">DDP</Option>
+                                <Option value="FCB">FCB</Option>
+                            </Select>
+                        )}
+                        </Form.Item>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col>
+                        <Form.Item labelCol={{span:2}} label="发票">
+                            {getFieldDecorator('address2', {
+                        })(
+                            <Select>
+                                <Option value="DDP">DDP</Option>
+                                <Option value="FCB">FCB</Option>
+                            </Select>
+                        )}
+                        </Form.Item>
+                    </Col>
+                </Row>
+            </Form >
         );
     }
 }
@@ -140,20 +262,7 @@ const stateToProps = (state: any) => {
 //         }
 //     }
 // }
-// export default Form.create<YProps>(
-//     {
-//         name: 'global_state',
-//         onFieldsChange(props, changedFields) {
-//             //   props.onChange(changedFields);
-//           console.log(props, changedFields);
-//         },
-//         onValuesChange(_, values) {
-//             //console.log(values);
-//         },
-//     }
-// )(
-//     connect(stateToProps, dispatchToProps)(Require),
-// )
+
 
 export default connect(stateToProps)(Form.create<YProps>(
     {

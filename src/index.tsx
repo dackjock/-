@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import TodoList from './TodoList'
 import { Provider } from 'react-redux'
 import store from './store'
+import './public.css'
 //声明一个App组件，然后这个组件用Provider进行包裹。
 const App = (
    <Provider store={store}>

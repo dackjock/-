@@ -1,0 +1,6 @@
+.Require_From .ant-form-item {
+  margin-bottom: 0;
+}
+.Require_From .ant-form-item-label > label {
+  color: rgba(0, 0, 0, 0.65);
+}
