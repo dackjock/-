@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import 'antd/dist/antd.css'
-import { Card } from 'antd'
+import { Card , Button  } from 'antd'
+import Customer from './Customer'
 import Require from './Require'
 import store from './store'
 import { getTodoList } from "./store/actionCreators"
@@ -13,8 +14,8 @@ interface Person {
 }
 
 const contentListNoTitle: Person = {
-    article: <Require />,
-    app: <p>app content</p>,
+    article: <Customer />,
+    app:<Require />,
     project: <p>project content</p>,
 };
 const tabListNoTitle= [
@@ -41,7 +42,7 @@ class TodoList extends Component<any> {
 
     onTabChange = (key: any, type: string) => {
         console.log(key, type);
-        this.setState({ [type]: key });
+       this.setState({ [type]: key });
     };
   
     componentDidMount() {
@@ -52,6 +53,9 @@ class TodoList extends Component<any> {
 
         return (
             <div>
+                <div className='flex_right_box'>
+                <Button type="primary" size={'small'}>保存</Button>
+                </div>
                 <Card
                     style={{ width: '100%' }}
                     tabList={tabListNoTitle}

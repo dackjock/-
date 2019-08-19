@@ -4,3 +4,11 @@
 .Require_From .ant-form-item-label > label {
   color: rgba(0, 0, 0, 0.65);
 }
+.flex_right_box {
+  display: flex;
+  height: 40px;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0 30px;
+  background: #eee;
+}
